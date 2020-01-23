@@ -1,4 +1,4 @@
-#ifndef TLE_HPP_
+#ifndef TLE_HPP_	// Evitamos que se añada dos veces el mismo código
 #define TLE_HPP_
 
 #define MAX_LINES       3
@@ -10,10 +10,10 @@ class TLE
   char TLE_buffer[MAX_LINES][MAX_BUFFER_SIZE];
   
   void algo();
-  
+
 
   private:
-  
+
 };
 
 
