@@ -1,21 +1,26 @@
-#define TLE_DEBUG		1	// Si no se va a debuggear, poner a 0
 #include "TLE_protocol.hpp"
+#include "PWM_driver.hpp"
 
 /*
  To do:
- - Los datos constantes, moverlos en la EEPROM ( nombre del módulo ). ¿Qué cosas mover?
+ - Los datos constantes, moverlos en la EEPROM ( nombre del módulo ). ¿Qué cosas mover?. Habrá que implementarlo
  - 
  - 
  - 
  */
 
-TLE asd; // temporal
+TLE tle; // temporal
+PWM_driver driver;
 
 void setup()
 {
-  asd.init();	// temporal, mirar que todo tira
-  //Serial.print( sizeof(asd.TLE_buffer[0]) );
-
+  tle.init();	// temporal, mirar que todo tira
+  
+  delay(1500);
+  driver.init(); // Init TLE driver ( parte hardware, IRQs, pines, etc )
+  driver.send_byte('A');
+  
+  
 
 }
 

@@ -1,6 +1,11 @@
 #ifndef CONSTANTS_H_	// Evitamos que se añada dos veces el mismo código
 #define CONSTANTS_H_
 
+// Otros defines
+	#define TITLE						0
+	#define LINE_1						1
+	#define LINE_2						2
+
 // Title
 	#define MAX_TITLE_SIZE          	24 // Size 24. Field 1. Title.
 		#define TITLE_INIT				0

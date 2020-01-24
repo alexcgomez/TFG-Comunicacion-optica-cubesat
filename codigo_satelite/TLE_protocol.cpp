@@ -1,8 +1,9 @@
 #include "TLE_protocol.hpp"
-#include "TLE_driver.hpp"
+#include "PWM_driver.hpp"
 
+#define TLE_DEBUG	1 // apagar si no se va a debuggear
 
-TLE_DRIVER driver;
+//PWM_driver driver;
 
 void TLE::init()
 {
@@ -11,7 +12,7 @@ void TLE::init()
 		Serial.println("TLE_Protocol.cpp. Modo debug TLE activo!"); 
 	#endif
 	
-	driver.init(); // Init TLE driver ( parte hardware, IRQs, pines, etc )	
+	//driver.init(); // Init TLE driver ( parte hardware, IRQs, pines, etc )	
 }
 
 // Title
