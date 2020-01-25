@@ -1,6 +1,9 @@
 #ifndef CONSTANTS_H_	// Evitamos que se añada dos veces el mismo código
 #define CONSTANTS_H_
 
+// Constantes TLE, quizás se moverá. De momento ignorar hasta
+// que el driver no esté completo
+
 // Otros defines
 	#define TITLE						0
 	#define LINE_1						1

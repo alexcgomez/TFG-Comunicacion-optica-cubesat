@@ -9,7 +9,7 @@ void TLE::init()
 {
 	#if TLE_DEBUG == 1 		// esto no llegará a compilarse, se lo come el preprocesador
 		Serial.begin(9600);
-		Serial.println("TLE_Protocol.cpp. Modo debug TLE activo!"); 
+		//Serial.println("TLE_Protocol.cpp. Modo debug TLE activo!"); 
 	#endif
 	
 	//driver.init(); // Init TLE driver ( parte hardware, IRQs, pines, etc )	
