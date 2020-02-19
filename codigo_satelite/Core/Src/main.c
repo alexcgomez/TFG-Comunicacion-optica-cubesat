@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "uart.h"
+#include "transmisor.h"
 
 /* USER CODE END Includes */
 
@@ -94,7 +95,11 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  
+	HAL_Delay(2000); // Debug
 	HAL_TIM_Base_Start_IT(&htim4);
+	send_byte(5); // Debug, enviamos el número 5
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
