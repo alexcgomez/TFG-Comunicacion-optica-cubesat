@@ -27,7 +27,7 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+extern unsigned int contador;
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim4;
