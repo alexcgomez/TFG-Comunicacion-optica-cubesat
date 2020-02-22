@@ -9,6 +9,7 @@
 	extern volatile unsigned char _dato_a_enviar;
 	extern unsigned char can_send;
 	
+	void send(unsigned char* texto);
 	void send_byte(unsigned char dada);
 
 #endif
