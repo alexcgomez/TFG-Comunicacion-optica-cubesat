@@ -15,7 +15,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */
+*/
 
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
@@ -25,7 +25,6 @@
 unsigned int contador = 0;
 
 /* USER CODE END 0 */
-
 TIM_HandleTypeDef htim4;
 
 /* TIM4 init function */
@@ -106,7 +105,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	
 		if(can_send == SENDING)
 		{
-			uart_print("Contador: "); uart_print_int(contador); uart_print(", ");
+			// apago este chivato para no saturar la terminal
+			//uart_print("Contador: "); uart_print_int(contador); uart_print(", ");
 			
 			 // no deja usar switch porque en
 			 // los case no puedes meter variables
