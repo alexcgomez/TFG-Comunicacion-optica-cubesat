@@ -23,3 +23,6 @@ cd openocd
 ./configure
 make
 sudo make install
+
+#STM 32 Flash ( para arreglar el ARM por uart )
+sudo apt -y install stm32flash
