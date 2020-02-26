@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "uart.h"
+#include "transmisor.h"
 
 /* USER CODE END Includes */
 
@@ -94,7 +95,20 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  
+	HAL_Delay(2000);								// Debug
 	HAL_TIM_Base_Start_IT(&htim4);
+	
+	uart_println("Envío un solo byte ( nº 5 ): ");  // Debug
+	send_byte(5);									// Debug, enviamos el número 5
+	
+	uart_println("Envío un string (Hola): "); 		// Debug
+	send("Hola");  							  		// Debug
+	
+	while( can_send == SENDING ); 					// Debug. Hasta que no termine, no envío el mensaje
+	uart_println("\r\n\r\nTerminado!"); 			// Debug. \r = retorno de carro, \n = salto de línea
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
