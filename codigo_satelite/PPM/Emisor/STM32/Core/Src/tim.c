@@ -15,7 +15,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-*/
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
@@ -24,7 +24,16 @@
 #include "transmisor.h"
 unsigned int contador = 0;
 
+/*
+prescaler = 65535
+period = 98
+
+Cada segundo se producirán 1.000 ticks.
+Cada tick dura 1 ms
+*/
+
 /* USER CODE END 0 */
+
 TIM_HandleTypeDef htim4;
 
 /* TIM4 init function */
@@ -36,7 +45,7 @@ void MX_TIM4_Init(void)
   htim4.Instance = TIM4;
   htim4.Init.Prescaler = 65535;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 10; // antes 1080
+  htim4.Init.Period = 98;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
@@ -101,32 +110,24 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM4)
 	{
-		HAL_GPIO_TogglePin(TEMP_Clock_GPIO_Port, TEMP_Clock_Pin); // debug
-	
 		if(can_send == SENDING)
 		{
-			// apago este chivato para no saturar la terminal
-			//uart_print("Contador: "); uart_print_int(contador); uart_print(", ");
-			
-			 // no deja usar switch porque en
-			 // los case no puedes meter variables
-			 // sino sería una gran solución
-			 
+      HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 0); // temporal ( IRQ disparada )
+
 			if( contador == _dato_a_enviar )
 			{
-				uart_println(" ==> LED ON"); // debug
-				HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, 1);
+				HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 1);
 			}
 			else if( contador == (_dato_a_enviar+1) )
 			{
-				uart_println(" ==> LED OFF"); // debug
-				HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, 0);
-			}
-			else if( contador > 255 )
-			{
-				uart_println(" ==> END");  // debug
-				can_send = FREE;
-			}
+				HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 0);
+        HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 1); // temporal ( IRQ parada )
+        can_send = FREE;
+      }
+			//else if( contador > 255 )
+			//{
+			//	can_send = FREE;
+			//}
 				
 			contador++;
 		}

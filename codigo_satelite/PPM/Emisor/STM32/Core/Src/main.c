@@ -72,7 +72,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -95,19 +94,17 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  
-	HAL_Delay(2000);								// Debug
-	HAL_TIM_Base_Start_IT(&htim4);
 
-//uart_println("Envío un solo byte ( nº 5 ): ");  // Debug
-//send_byte(5);									// Debug, enviamos el número 5
+  HAL_TIM_Base_Start_IT(&htim4);
 
-//uart_println("Envío un string (Hola): "); 		// Debug
-//send("Hola");  							  		// Debug
+  HAL_Delay(1500);
 
-//while( can_send == SENDING ); 					// Debug. Hasta que no termine, no envío el mensaje
-//uart_println("\r\n\r\nTerminado!"); 			// Debug. \r = retorno de carro, \n = salto de línea
-
+  for (int i = 1; i < 255; i++)
+  {
+    send_byte(i);
+    while (can_send == SENDING)
+      ;
+  }
 
   /* USER CODE END 2 */
 
@@ -115,9 +112,18 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    uart_print("Hola");
-    uart_print("\n");
-    HAL_Delay(2000);
+    /*
+    HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 1);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 0);
+    HAL_Delay(1000);
+
+    HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 1);
+    HAL_Delay(1000);
+    HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 0);
+    HAL_Delay(1000);
+    */
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -149,8 +155,7 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -177,7 +182,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -186,7 +191,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */

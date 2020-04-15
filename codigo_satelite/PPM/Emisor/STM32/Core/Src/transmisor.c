@@ -26,6 +26,4 @@ void send_byte(unsigned char dada)
 	can_send = SENDING; // a partir de aqui, estamos enviando un paquete
 						// y no podremos enviar el siguiente hasta que
 						// no esté listo el primero
-						
-	uart_println("Enviando");
 }
