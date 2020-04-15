@@ -1,0 +1,450 @@
+ARM GAS  /tmp/ccsI3xlY.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"uart.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.UART_Init,"ax",%progbits
+  16              		.align	1
+  17              		.global	UART_Init
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	UART_Init:
+  24              	.LFB64:
+  25              		.file 1 "Core/Src/uart.c"
+   1:Core/Src/uart.c **** #include "uart.h"
+   2:Core/Src/uart.c **** 
+   3:Core/Src/uart.c **** void UART_Init()
+   4:Core/Src/uart.c **** {
+  26              		.loc 1 4 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 08B5     		push	{r3, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 3, -8
+  34              		.cfi_offset 14, -4
+   5:Core/Src/uart.c ****   UART.Instance = USART1;
+  35              		.loc 1 5 0
+  36 0002 0A48     		ldr	r0, .L5
+  37 0004 0A4B     		ldr	r3, .L5+4
+  38 0006 0360     		str	r3, [r0]
+   6:Core/Src/uart.c ****   UART.Init.BaudRate = 9600;
+  39              		.loc 1 6 0
+  40 0008 4FF41653 		mov	r3, #9600
+  41 000c 4360     		str	r3, [r0, #4]
+   7:Core/Src/uart.c ****   UART.Init.WordLength = UART_WORDLENGTH_8B;
+  42              		.loc 1 7 0
+  43 000e 0023     		movs	r3, #0
+  44 0010 8360     		str	r3, [r0, #8]
+   8:Core/Src/uart.c ****   UART.Init.StopBits = UART_STOPBITS_1;
+  45              		.loc 1 8 0
+  46 0012 C360     		str	r3, [r0, #12]
+   9:Core/Src/uart.c ****   UART.Init.Parity = UART_PARITY_NONE;
+  47              		.loc 1 9 0
+  48 0014 0361     		str	r3, [r0, #16]
+  10:Core/Src/uart.c ****   UART.Init.Mode = UART_MODE_TX_RX;
+ARM GAS  /tmp/ccsI3xlY.s 			page 2
+
+
+  49              		.loc 1 10 0
+  50 0016 0C22     		movs	r2, #12
+  51 0018 4261     		str	r2, [r0, #20]
+  11:Core/Src/uart.c ****   UART.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  52              		.loc 1 11 0
+  53 001a 8361     		str	r3, [r0, #24]
+  12:Core/Src/uart.c ****   UART.Init.OverSampling = UART_OVERSAMPLING_16;
+  54              		.loc 1 12 0
+  55 001c C361     		str	r3, [r0, #28]
+  13:Core/Src/uart.c ****   if (HAL_UART_Init(&UART) != HAL_OK)
+  56              		.loc 1 13 0
+  57 001e FFF7FEFF 		bl	HAL_UART_Init
+  58              	.LVL0:
+  59 0022 00B9     		cbnz	r0, .L4
+  60              	.L1:
+  61 0024 08BD     		pop	{r3, pc}
+  62              	.L4:
+  14:Core/Src/uart.c ****   {
+  15:Core/Src/uart.c ****     Error_Handler();
+  63              		.loc 1 15 0
+  64 0026 FFF7FEFF 		bl	Error_Handler
+  65              	.LVL1:
+  16:Core/Src/uart.c ****   }
+  17:Core/Src/uart.c **** }
+  66              		.loc 1 17 0
+  67 002a FBE7     		b	.L1
+  68              	.L6:
+  69              		.align	2
+  70              	.L5:
+  71 002c 00000000 		.word	huart1
+  72 0030 00380140 		.word	1073821696
+  73              		.cfi_endproc
+  74              	.LFE64:
+  76              		.section	.text.uart_put_char,"ax",%progbits
+  77              		.align	1
+  78              		.global	uart_put_char
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  82              		.fpu softvfp
+  84              	uart_put_char:
+  85              	.LFB65:
+  18:Core/Src/uart.c **** 
+  19:Core/Src/uart.c **** void uart_put_char(char caracter)
+  20:Core/Src/uart.c **** {
+  86              		.loc 1 20 0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              	.LVL2:
+  91 0000 08B5     		push	{r3, lr}
+  92              	.LCFI1:
+  93              		.cfi_def_cfa_offset 8
+  94              		.cfi_offset 3, -8
+  95              		.cfi_offset 14, -4
+  21:Core/Src/uart.c **** 	HAL_UART_Transmit(&UART, caracter, 1, 100);
+  96              		.loc 1 21 0
+ARM GAS  /tmp/ccsI3xlY.s 			page 3
+
+
+  97 0002 6423     		movs	r3, #100
+  98 0004 0122     		movs	r2, #1
+  99 0006 0146     		mov	r1, r0
+ 100 0008 0148     		ldr	r0, .L9
+ 101              	.LVL3:
+ 102 000a FFF7FEFF 		bl	HAL_UART_Transmit
+ 103              	.LVL4:
+ 104 000e 08BD     		pop	{r3, pc}
+ 105              	.L10:
+ 106              		.align	2
+ 107              	.L9:
+ 108 0010 00000000 		.word	huart1
+ 109              		.cfi_endproc
+ 110              	.LFE65:
+ 112              		.section	.text.uart_put_char16,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	uart_put_char16
+ 115              		.syntax unified
+ 116              		.thumb
+ 117              		.thumb_func
+ 118              		.fpu softvfp
+ 120              	uart_put_char16:
+ 121              	.LFB66:
+  22:Core/Src/uart.c **** }
+  23:Core/Src/uart.c **** 
+  24:Core/Src/uart.c **** void uart_put_char16(uint16_t caracter)
+  25:Core/Src/uart.c **** {
+ 122              		.loc 1 25 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 8
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              	.LVL5:
+ 127 0000 00B5     		push	{lr}
+ 128              	.LCFI2:
+ 129              		.cfi_def_cfa_offset 4
+ 130              		.cfi_offset 14, -4
+ 131 0002 83B0     		sub	sp, sp, #12
+ 132              	.LCFI3:
+ 133              		.cfi_def_cfa_offset 16
+  26:Core/Src/uart.c **** 	uint8_t dades[2] = 
+ 134              		.loc 1 26 0
+ 135 0004 8DF80400 		strb	r0, [sp, #4]
+ 136 0008 0023     		movs	r3, #0
+ 137 000a 8DF80530 		strb	r3, [sp, #5]
+  27:Core/Src/uart.c **** 	{
+  28:Core/Src/uart.c **** 		(caracter & 0x00FF),
+  29:Core/Src/uart.c **** 		((caracter & 0xFF00) << 8)
+  30:Core/Src/uart.c **** 	};
+  31:Core/Src/uart.c **** 	HAL_UART_Transmit(&UART, dades, 2, 100);
+ 138              		.loc 1 31 0
+ 139 000e 6423     		movs	r3, #100
+ 140 0010 0222     		movs	r2, #2
+ 141 0012 01A9     		add	r1, sp, #4
+ 142 0014 0248     		ldr	r0, .L13
+ 143              	.LVL6:
+ 144 0016 FFF7FEFF 		bl	HAL_UART_Transmit
+ 145              	.LVL7:
+ARM GAS  /tmp/ccsI3xlY.s 			page 4
+
+
+  32:Core/Src/uart.c **** }
+ 146              		.loc 1 32 0
+ 147 001a 03B0     		add	sp, sp, #12
+ 148              	.LCFI4:
+ 149              		.cfi_def_cfa_offset 4
+ 150              		@ sp needed
+ 151 001c 5DF804FB 		ldr	pc, [sp], #4
+ 152              	.L14:
+ 153              		.align	2
+ 154              	.L13:
+ 155 0020 00000000 		.word	huart1
+ 156              		.cfi_endproc
+ 157              	.LFE66:
+ 159              		.section	.text.uart_print,"ax",%progbits
+ 160              		.align	1
+ 161              		.global	uart_print
+ 162              		.syntax unified
+ 163              		.thumb
+ 164              		.thumb_func
+ 165              		.fpu softvfp
+ 167              	uart_print:
+ 168              	.LFB67:
+  33:Core/Src/uart.c **** 
+  34:Core/Src/uart.c **** void uart_print(char* text)
+  35:Core/Src/uart.c **** {
+ 169              		.loc 1 35 0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              	.LVL8:
+ 174 0000 10B5     		push	{r4, lr}
+ 175              	.LCFI5:
+ 176              		.cfi_def_cfa_offset 8
+ 177              		.cfi_offset 4, -8
+ 178              		.cfi_offset 14, -4
+ 179 0002 0446     		mov	r4, r0
+  36:Core/Src/uart.c **** 	HAL_UART_Transmit(&UART, text, strlen(text), 100);
+ 180              		.loc 1 36 0
+ 181 0004 FFF7FEFF 		bl	strlen
+ 182              	.LVL9:
+ 183 0008 6423     		movs	r3, #100
+ 184 000a 82B2     		uxth	r2, r0
+ 185 000c 2146     		mov	r1, r4
+ 186 000e 0248     		ldr	r0, .L17
+ 187 0010 FFF7FEFF 		bl	HAL_UART_Transmit
+ 188              	.LVL10:
+ 189 0014 10BD     		pop	{r4, pc}
+ 190              	.LVL11:
+ 191              	.L18:
+ 192 0016 00BF     		.align	2
+ 193              	.L17:
+ 194 0018 00000000 		.word	huart1
+ 195              		.cfi_endproc
+ 196              	.LFE67:
+ 198              		.section	.text.uart_println,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	uart_println
+ARM GAS  /tmp/ccsI3xlY.s 			page 5
+
+
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu softvfp
+ 206              	uart_println:
+ 207              	.LFB68:
+  37:Core/Src/uart.c **** }
+  38:Core/Src/uart.c **** 
+  39:Core/Src/uart.c **** void uart_println(char* text)
+  40:Core/Src/uart.c **** {
+ 208              		.loc 1 40 0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              	.LVL12:
+ 213 0000 08B5     		push	{r3, lr}
+ 214              	.LCFI6:
+ 215              		.cfi_def_cfa_offset 8
+ 216              		.cfi_offset 3, -8
+ 217              		.cfi_offset 14, -4
+  41:Core/Src/uart.c **** 	uart_print(text);
+ 218              		.loc 1 41 0
+ 219 0002 FFF7FEFF 		bl	uart_print
+ 220              	.LVL13:
+  42:Core/Src/uart.c **** 	HAL_UART_Transmit(&UART, "\r\n", sizeof("\r\n"), 100);
+ 221              		.loc 1 42 0
+ 222 0006 6423     		movs	r3, #100
+ 223 0008 0322     		movs	r2, #3
+ 224 000a 0249     		ldr	r1, .L21
+ 225 000c 0248     		ldr	r0, .L21+4
+ 226 000e FFF7FEFF 		bl	HAL_UART_Transmit
+ 227              	.LVL14:
+ 228 0012 08BD     		pop	{r3, pc}
+ 229              	.L22:
+ 230              		.align	2
+ 231              	.L21:
+ 232 0014 00000000 		.word	.LC0
+ 233 0018 00000000 		.word	huart1
+ 234              		.cfi_endproc
+ 235              	.LFE68:
+ 237              		.section	.text.uart_print_int,"ax",%progbits
+ 238              		.align	1
+ 239              		.global	uart_print_int
+ 240              		.syntax unified
+ 241              		.thumb
+ 242              		.thumb_func
+ 243              		.fpu softvfp
+ 245              	uart_print_int:
+ 246              	.LFB69:
+  43:Core/Src/uart.c **** }
+  44:Core/Src/uart.c **** 
+  45:Core/Src/uart.c **** void uart_print_int(size_t dada)
+  46:Core/Src/uart.c **** {
+ 247              		.loc 1 46 0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 16
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccsI3xlY.s 			page 6
+
+
+ 251              	.LVL15:
+ 252 0000 00B5     		push	{lr}
+ 253              	.LCFI7:
+ 254              		.cfi_def_cfa_offset 4
+ 255              		.cfi_offset 14, -4
+ 256 0002 85B0     		sub	sp, sp, #20
+ 257              	.LCFI8:
+ 258              		.cfi_def_cfa_offset 24
+  47:Core/Src/uart.c **** 	char text_dada[10]={0,0,0,0,0};
+ 259              		.loc 1 47 0
+ 260 0004 0023     		movs	r3, #0
+ 261 0006 0193     		str	r3, [sp, #4]
+ 262 0008 0293     		str	r3, [sp, #8]
+ 263 000a ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  48:Core/Src/uart.c **** 	itoa( dada , text_dada, 10);			
+ 264              		.loc 1 48 0
+ 265 000e 0A22     		movs	r2, #10
+ 266 0010 01A9     		add	r1, sp, #4
+ 267 0012 FFF7FEFF 		bl	itoa
+ 268              	.LVL16:
+  49:Core/Src/uart.c **** 	HAL_UART_Transmit(&UART, text_dada , sizeof(text_dada), 100);
+ 269              		.loc 1 49 0
+ 270 0016 6423     		movs	r3, #100
+ 271 0018 0A22     		movs	r2, #10
+ 272 001a 01A9     		add	r1, sp, #4
+ 273 001c 0248     		ldr	r0, .L25
+ 274 001e FFF7FEFF 		bl	HAL_UART_Transmit
+ 275              	.LVL17:
+  50:Core/Src/uart.c **** }
+ 276              		.loc 1 50 0
+ 277 0022 05B0     		add	sp, sp, #20
+ 278              	.LCFI9:
+ 279              		.cfi_def_cfa_offset 4
+ 280              		@ sp needed
+ 281 0024 5DF804FB 		ldr	pc, [sp], #4
+ 282              	.L26:
+ 283              		.align	2
+ 284              	.L25:
+ 285 0028 00000000 		.word	huart1
+ 286              		.cfi_endproc
+ 287              	.LFE69:
+ 289              		.section	.text.uart_println_int,"ax",%progbits
+ 290              		.align	1
+ 291              		.global	uart_println_int
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 295              		.fpu softvfp
+ 297              	uart_println_int:
+ 298              	.LFB70:
+  51:Core/Src/uart.c **** 
+  52:Core/Src/uart.c **** void uart_println_int(size_t dada)
+  53:Core/Src/uart.c **** {
+ 299              		.loc 1 53 0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccsI3xlY.s 			page 7
+
+
+ 303              	.LVL18:
+ 304 0000 08B5     		push	{r3, lr}
+ 305              	.LCFI10:
+ 306              		.cfi_def_cfa_offset 8
+ 307              		.cfi_offset 3, -8
+ 308              		.cfi_offset 14, -4
+  54:Core/Src/uart.c **** 	uart_print_int(dada);			
+ 309              		.loc 1 54 0
+ 310 0002 FFF7FEFF 		bl	uart_print_int
+ 311              	.LVL19:
+  55:Core/Src/uart.c **** 	uart_println("");
+ 312              		.loc 1 55 0
+ 313 0006 0248     		ldr	r0, .L29
+ 314 0008 FFF7FEFF 		bl	uart_println
+ 315              	.LVL20:
+ 316 000c 08BD     		pop	{r3, pc}
+ 317              	.L30:
+ 318 000e 00BF     		.align	2
+ 319              	.L29:
+ 320 0010 00000000 		.word	.LC1
+ 321              		.cfi_endproc
+ 322              	.LFE70:
+ 324              		.comm	huart1,64,4
+ 325              		.section	.rodata.uart_println.str1.4,"aMS",%progbits,1
+ 326              		.align	2
+ 327              	.LC0:
+ 328 0000 0D0A00   		.ascii	"\015\012\000"
+ 329              		.section	.rodata.uart_println_int.str1.4,"aMS",%progbits,1
+ 330              		.align	2
+ 331              	.LC1:
+ 332 0000 00       		.ascii	"\000"
+ 333              		.text
+ 334              	.Letext0:
+ 335              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 336              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 337              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 338              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 339              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 340              		.file 7 "/usr/lib/gcc/arm-none-eabi/6.3.1/include/stddef.h"
+ 341              		.file 8 "/usr/include/newlib/sys/lock.h"
+ 342              		.file 9 "/usr/include/newlib/sys/_types.h"
+ 343              		.file 10 "/usr/include/newlib/sys/reent.h"
+ 344              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 345              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 346              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 347              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 348              		.file 15 "Core/Inc/usart.h"
+ 349              		.file 16 "<built-in>"
+ 350              		.file 17 "Core/Inc/main.h"
+ 351              		.file 18 "Core/Inc/uart.h"
+ARM GAS  /tmp/ccsI3xlY.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 uart.c
+     /tmp/ccsI3xlY.s:16     .text.UART_Init:0000000000000000 $t
+     /tmp/ccsI3xlY.s:23     .text.UART_Init:0000000000000000 UART_Init
+     /tmp/ccsI3xlY.s:71     .text.UART_Init:000000000000002c $d
+                            *COM*:0000000000000040 huart1
+     /tmp/ccsI3xlY.s:77     .text.uart_put_char:0000000000000000 $t
+     /tmp/ccsI3xlY.s:84     .text.uart_put_char:0000000000000000 uart_put_char
+     /tmp/ccsI3xlY.s:108    .text.uart_put_char:0000000000000010 $d
+     /tmp/ccsI3xlY.s:113    .text.uart_put_char16:0000000000000000 $t
+     /tmp/ccsI3xlY.s:120    .text.uart_put_char16:0000000000000000 uart_put_char16
+     /tmp/ccsI3xlY.s:155    .text.uart_put_char16:0000000000000020 $d
+     /tmp/ccsI3xlY.s:160    .text.uart_print:0000000000000000 $t
+     /tmp/ccsI3xlY.s:167    .text.uart_print:0000000000000000 uart_print
+     /tmp/ccsI3xlY.s:194    .text.uart_print:0000000000000018 $d
+     /tmp/ccsI3xlY.s:199    .text.uart_println:0000000000000000 $t
+     /tmp/ccsI3xlY.s:206    .text.uart_println:0000000000000000 uart_println
+     /tmp/ccsI3xlY.s:232    .text.uart_println:0000000000000014 $d
+     /tmp/ccsI3xlY.s:238    .text.uart_print_int:0000000000000000 $t
+     /tmp/ccsI3xlY.s:245    .text.uart_print_int:0000000000000000 uart_print_int
+     /tmp/ccsI3xlY.s:285    .text.uart_print_int:0000000000000028 $d
+     /tmp/ccsI3xlY.s:290    .text.uart_println_int:0000000000000000 $t
+     /tmp/ccsI3xlY.s:297    .text.uart_println_int:0000000000000000 uart_println_int
+     /tmp/ccsI3xlY.s:320    .text.uart_println_int:0000000000000010 $d
+     /tmp/ccsI3xlY.s:326    .rodata.uart_println.str1.4:0000000000000000 $d
+     /tmp/ccsI3xlY.s:330    .rodata.uart_println_int.str1.4:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Init
+Error_Handler
+HAL_UART_Transmit
+strlen
+itoa

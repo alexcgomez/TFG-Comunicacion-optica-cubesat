@@ -1,0 +1,144 @@
+ARM GAS  /tmp/ccHdT8sz.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"gpio.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  16              		.align	1
+  17              		.global	MX_GPIO_Init
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	MX_GPIO_Init:
+  24              	.LFB64:
+  25              		.file 1 "Core/Src/gpio.c"
+   1:Core/Src/gpio.c **** /**
+   2:Core/Src/gpio.c ****   ******************************************************************************
+   3:Core/Src/gpio.c ****   * File Name          : gpio.c
+   4:Core/Src/gpio.c ****   * Description        : This file provides code for the configuration
+   5:Core/Src/gpio.c ****   *                      of all used GPIO pins.
+   6:Core/Src/gpio.c ****   ******************************************************************************
+   7:Core/Src/gpio.c ****   * @attention
+   8:Core/Src/gpio.c ****   *
+   9:Core/Src/gpio.c ****   * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  10:Core/Src/gpio.c ****   * All rights reserved.</center></h2>
+  11:Core/Src/gpio.c ****   *
+  12:Core/Src/gpio.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Core/Src/gpio.c ****   * the "License"; You may not use this file except in compliance with the
+  14:Core/Src/gpio.c ****   * License. You may obtain a copy of the License at:
+  15:Core/Src/gpio.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Core/Src/gpio.c ****   *
+  17:Core/Src/gpio.c ****   ******************************************************************************
+  18:Core/Src/gpio.c ****   */
+  19:Core/Src/gpio.c **** 
+  20:Core/Src/gpio.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/gpio.c **** #include "gpio.h"
+  22:Core/Src/gpio.c **** /* USER CODE BEGIN 0 */
+  23:Core/Src/gpio.c **** 
+  24:Core/Src/gpio.c **** /* USER CODE END 0 */
+  25:Core/Src/gpio.c **** 
+  26:Core/Src/gpio.c **** /*----------------------------------------------------------------------------*/
+  27:Core/Src/gpio.c **** /* Configure GPIO                                                             */
+  28:Core/Src/gpio.c **** /*----------------------------------------------------------------------------*/
+  29:Core/Src/gpio.c **** /* USER CODE BEGIN 1 */
+  30:Core/Src/gpio.c **** 
+  31:Core/Src/gpio.c **** /* USER CODE END 1 */
+  32:Core/Src/gpio.c **** 
+  33:Core/Src/gpio.c **** /** Configure pins as 
+ARM GAS  /tmp/ccHdT8sz.s 			page 2
+
+
+  34:Core/Src/gpio.c ****         * Analog 
+  35:Core/Src/gpio.c ****         * Input 
+  36:Core/Src/gpio.c ****         * Output
+  37:Core/Src/gpio.c ****         * EVENT_OUT
+  38:Core/Src/gpio.c ****         * EXTI
+  39:Core/Src/gpio.c **** */
+  40:Core/Src/gpio.c **** void MX_GPIO_Init(void)
+  41:Core/Src/gpio.c **** {
+  26              		.loc 1 41 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 82B0     		sub	sp, sp, #8
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              	.LBB2:
+  42:Core/Src/gpio.c **** 
+  43:Core/Src/gpio.c ****   /* GPIO Ports Clock Enable */
+  44:Core/Src/gpio.c ****   __HAL_RCC_GPIOD_CLK_ENABLE();
+  35              		.loc 1 44 0
+  36 0002 0A4B     		ldr	r3, .L3
+  37 0004 9A69     		ldr	r2, [r3, #24]
+  38 0006 42F02002 		orr	r2, r2, #32
+  39 000a 9A61     		str	r2, [r3, #24]
+  40 000c 9A69     		ldr	r2, [r3, #24]
+  41 000e 02F02002 		and	r2, r2, #32
+  42 0012 0092     		str	r2, [sp]
+  43 0014 009A     		ldr	r2, [sp]
+  44              	.LBE2:
+  45              	.LBB3:
+  45:Core/Src/gpio.c ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+  46              		.loc 1 45 0
+  47 0016 9A69     		ldr	r2, [r3, #24]
+  48 0018 42F00402 		orr	r2, r2, #4
+  49 001c 9A61     		str	r2, [r3, #24]
+  50 001e 9B69     		ldr	r3, [r3, #24]
+  51 0020 03F00403 		and	r3, r3, #4
+  52 0024 0193     		str	r3, [sp, #4]
+  53 0026 019B     		ldr	r3, [sp, #4]
+  54              	.LBE3:
+  46:Core/Src/gpio.c **** 
+  47:Core/Src/gpio.c **** }
+  55              		.loc 1 47 0
+  56 0028 02B0     		add	sp, sp, #8
+  57              	.LCFI1:
+  58              		.cfi_def_cfa_offset 0
+  59              		@ sp needed
+  60 002a 7047     		bx	lr
+  61              	.L4:
+  62              		.align	2
+  63              	.L3:
+  64 002c 00100240 		.word	1073876992
+  65              		.cfi_endproc
+  66              	.LFE64:
+  68              		.text
+  69              	.Letext0:
+ARM GAS  /tmp/ccHdT8sz.s 			page 3
+
+
+  70              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+  71              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+  72              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+  73              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+  74              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+  75              		.file 7 "/usr/include/newlib/sys/lock.h"
+  76              		.file 8 "/usr/include/newlib/sys/_types.h"
+  77              		.file 9 "/usr/lib/gcc/arm-none-eabi/6.3.1/include/stddef.h"
+  78              		.file 10 "/usr/include/newlib/sys/reent.h"
+  79              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  /tmp/ccHdT8sz.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gpio.c
+     /tmp/ccHdT8sz.s:16     .text.MX_GPIO_Init:0000000000000000 $t
+     /tmp/ccHdT8sz.s:23     .text.MX_GPIO_Init:0000000000000000 MX_GPIO_Init
+     /tmp/ccHdT8sz.s:64     .text.MX_GPIO_Init:000000000000002c $d
+                     .debug_frame:0000000000000010 $d
+
+NO UNDEFINED SYMBOLS
