@@ -97,14 +97,11 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-  HAL_Delay(1500);
+  //  HAL_Delay(1500);
 
-  for (int i = 1; i < 255; i++)
-  {
-    send_byte(i);
-    while (can_send == SENDING)
-      ;
-  }
+  send("hola");
+  while (can_send == SENDING)
+    ;
 
   /* USER CODE END 2 */
 
