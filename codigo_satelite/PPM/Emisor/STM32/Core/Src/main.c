@@ -99,9 +99,11 @@ int main(void)
 
   //  HAL_Delay(1500);
 
+  send_byte(2); // señal de start (envía lo que quieras, es para empezar)
+	while (can_send == SENDING);
+
   send("hola");
-  while (can_send == SENDING)
-    ;
+  send_byte(4); // señal stop
 
   /* USER CODE END 2 */
 
