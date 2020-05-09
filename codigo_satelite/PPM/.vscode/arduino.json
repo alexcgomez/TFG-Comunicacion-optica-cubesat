@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "AVRISP mkII",
+    "port": "/dev/ttyACM0",
+    "sketch": "Receptor/Arduino/receptor/receptor.ino"
+}

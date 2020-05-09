@@ -102,8 +102,13 @@ int main(void)
   send_byte(2); // señal de start (envía lo que quieras, es para empezar)
 	while (can_send == SENDING);
 
-  send("hola");
-  send_byte(4); // señal stop
+  //send_byte('A');
+  send("AB");
+  while (can_send == SENDING);
+
+  send_byte(20); // señal stop
+	while (can_send == SENDING);
+
 
   /* USER CODE END 2 */
 
@@ -122,9 +127,7 @@ int main(void)
     HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 0);
     HAL_Delay(1000);
     */
-
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

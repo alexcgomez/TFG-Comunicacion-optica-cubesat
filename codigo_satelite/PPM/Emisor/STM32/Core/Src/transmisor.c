@@ -8,13 +8,18 @@ void send(unsigned char* texto)
 {
 	//uart_print("sizeof texto: ");
 	//uart_println_int(sizeof(texto));
-	
-	for(int i = 0; i < sizeof(texto); )
+	int i = 0;
+
+
+	while (i < (sizeof(texto)))
 	{
 		if(can_send == FREE)
 		{
-			send_byte(texto[i]);
-			i++;
+			// if(texto[i] != 0 )
+			//{
+				send_byte(texto[i]);
+			//}
+				i++;
 		}
 	}
 }
