@@ -1,18 +1,13 @@
-/*
-  Notas importantes:
-
-  Arduino Uno, al ir a 16MHz, los micros no los lleva muy bien,
-  así que la resolución de arduino es de múltiplos de 4
-  ( vamos, que salta de 4 en 4 ), hay que tenerlo en cuenta para ajustar
-  el TIM4 del STM32
-*/
-
+// Notas importantes:
+// Arduino Uno, al ir a 16MHz, los micros no los lleva muy bien,
+// así que la resolución de arduino es de múltiplos de 4
+// ( vamos, que salta de 4 en 4 ), hay que tenerlo en cuenta para ajustar
+// el TIM4 del STM32
 // ARM, PB12 (PPM)      => Arduino, 3 (PPM)
 // ARM, PB13 (Trigger)  => Arduino, 2 (IRQ In)
 
 #define BIT_STOP 4
 #define PIN_PPM 3
-
 #define SIZE_BUFFER 4 // relacionado con el nº de paquetes que envía el ARM
 
 volatile unsigned long tiempo = 0;
