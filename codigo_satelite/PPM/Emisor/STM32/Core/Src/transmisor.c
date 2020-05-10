@@ -19,7 +19,7 @@ void send(unsigned char* texto)
 			//{
 				send_byte(texto[i]);
 			//}
-				i++;
+				i++;	
 		}
 	}
 }

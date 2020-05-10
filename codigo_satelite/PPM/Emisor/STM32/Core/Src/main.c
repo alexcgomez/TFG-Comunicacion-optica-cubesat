@@ -97,18 +97,22 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-  //  HAL_Delay(1500);
+  HAL_Delay(1000);
 
-  send_byte(2); // señal de start (envía lo que quieras, es para empezar)
-	while (can_send == SENDING);
 
-  //send_byte('A');
-  send("AB");
-  while (can_send == SENDING);
+  send_byte(126);
+  while (can_send == SENDING)
+    ;
 
-  send_byte(20); // señal stop
-	while (can_send == SENDING);
+  for (int i = 0; i < 5; i++)
+  {
+    send_byte('A');
+    while (can_send == SENDING)
+      ;
+  }
 
+  //send_byte(20); // señal stop
+  //while (can_send == SENDING);
 
   /* USER CODE END 2 */
 
