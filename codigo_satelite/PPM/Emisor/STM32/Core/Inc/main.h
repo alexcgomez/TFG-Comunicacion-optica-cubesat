@@ -60,8 +60,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define PPM_pin_Pin GPIO_PIN_12
 #define PPM_pin_GPIO_Port GPIOB
-#define Trigger_pin_Pin GPIO_PIN_13
-#define Trigger_pin_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

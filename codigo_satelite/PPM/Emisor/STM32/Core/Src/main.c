@@ -21,12 +21,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "uart.h"
 #include "transmisor.h"
 
 /* USER CODE END Includes */
@@ -92,27 +90,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM4_Init();
-  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim4);
 
   HAL_Delay(1000);
 
-
-  send_byte(126);
-  while (can_send == SENDING)
-    ;
-
-  for (int i = 0; i < 5; i++)
-  {
-    send_byte('A');
-    while (can_send == SENDING)
-      ;
-  }
-
-  //send_byte(20); // señal stop
-  //while (can_send == SENDING);
+  PPM_send('A');
+  PPM_send('A');
 
   /* USER CODE END 2 */
 
@@ -132,6 +117,7 @@ int main(void)
     HAL_Delay(1000);
     */
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
