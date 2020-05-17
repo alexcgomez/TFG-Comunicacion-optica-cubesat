@@ -8,25 +8,26 @@
 */
 
 // ARM, PB12 (PPM)      => Arduino, 3 (PPM)
-// ARM, PB13 (Trigger)  => Arduino, 2 (IRQ In)
-
-#define BIT_STOP 4
 #define PIN_PPM 3
 
-#define SIZE_BUFFER 4 // relacionado con el nº de paquetes que envía el ARM
+#define BIT_START 0
+#define BIT_DATA 1
+#define BIT_STOP 4
+
+#define SIZE_BUFFER 5 // relacionado con el nº de paquetes que envía el ARM
 
 volatile unsigned long tiempo = 0;
-byte puntero = 0;
-unsigned long paquetes[SIZE_BUFFER];
-bool bit_start = true;
-bool EOT = false;
+volatile char paquetes[(SIZE_BUFFER)];
+volatile byte puntero = 0;
+volatile byte bit_start = BIT_START;
+volatile bool EOT = false;
 
 void setup()
 {
   Serial.begin(9600);
-  //pinMode(PIN_IRQ, INPUT_PULLUP);
+  Serial.println("Init!");
+
   pinMode(PIN_PPM, INPUT);
-  //attachInterrupt(digitalPinToInterrupt(PIN_IRQ), ISR_pin_IRQ, FALLING); // high=>low = ISR IRQ
   attachInterrupt(digitalPinToInterrupt(PIN_PPM), ISR_pin_PPM, CHANGE); // cambio estado pin = ISR PPM
 }
 
@@ -34,59 +35,61 @@ void loop()
 {
   if (EOT == true)
   {
-    Serial.println("Datos captados");
-
-    for (int i = 0; i < SIZE_BUFFER; i++)
-    {
-      Serial.print((char)paquetes[i]);
-    }
-    Serial.println("");
-    puntero = (SIZE_BUFFER + 1); // para evitar que se imprima todo el rato
+    imprimir_datos_recibidos();
+    reset_variables_ppm();
     EOT = false;
   }
 }
 
-void ISR_pin_IRQ()
-{
-}
-
 void ISR_pin_PPM()
 {
-  // si es la caída del clock ( final del
-  // "byte"), nos interesa empezar de nuevo
-  // ya que es cuando empieza un nuevo paquete.
-
-  // Cuando esté en la subida, es que ya terminó
-  // el antiguo y cronometramos el tiempo pasado
-
-  if ( bit_start ) // sólo se usa para iniciar la trama
+  switch (bit_start)
   {
-    bit_start = false;
-  }
-  else
-  {
-    if ( digitalRead(PIN_PPM) == LOW )
+  case BIT_START: // Sólo se usa para iniciar la trama
+    bit_start++;
+    break;
+
+  case BIT_DATA: // Data
+  default:
+
+    switch (digitalRead(PIN_PPM))
     {
+    case LOW:
       tiempo = micros();
-    }
-    else // HIGH
-    {
-      char palabra = ((micros() - tiempo) / 133 );
+      break;
 
-      if (palabra < BIT_STOP ) // señal de stop
+    case HIGH:
+      char palabra = ((micros() - tiempo) / 133);
+
+      if (palabra <= BIT_STOP) // if señal de stop => end of transmission
       {
-        EOT = true; // end of transmision
-        bit_start = true; // reset start para la próxima irq
-        puntero = 0;
+        EOT = true;
       }
       else // byte normal
       {
         paquetes[puntero] = palabra;
         puntero++;
       }
+      break;
     }
+    break;
   }
 }
 
+void reset_variables_ppm()
+{
+  puntero = 0;
+  bit_start = BIT_START; // reset start para la próxima irq
+  tiempo = 0;
+}
 
+void imprimir_datos_recibidos()
+{
+  Serial.print("Data: ");
 
+  for (int i = 0; i < sizeof(paquetes); i++)
+  {
+    Serial.print((char)paquetes[i]);
+  }
+  Serial.println("");
+}
