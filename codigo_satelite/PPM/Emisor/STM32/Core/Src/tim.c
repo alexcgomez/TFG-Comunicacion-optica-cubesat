@@ -104,7 +104,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
     if (!can_send) // Hay dato para enviar???
     {
+<<<<<<< HEAD
       switch (contador)
+=======
+      if (contador == _dato_a_enviar)
+>>>>>>> c3355400b1fe64584086f367d8d36098df8d06dd
       {
       case INICIO_START:
         HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 1); // bit de START
@@ -131,8 +135,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
       if (!can_send) // para evitar que al salir del default nos incremente
       {
+<<<<<<< HEAD
         contador++;
       }
+=======
+        HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 0);
+        can_send = FREE;
+      }
+      contador++;
+>>>>>>> c3355400b1fe64584086f367d8d36098df8d06dd
     }
   }
 }
