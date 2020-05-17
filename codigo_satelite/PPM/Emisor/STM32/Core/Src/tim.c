@@ -121,8 +121,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
     if (can_send == SENDING)
     {
-      HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 0); // temporal ( IRQ disparada )
-
       if (contador == _dato_a_enviar)
       {
         HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 1);
@@ -130,14 +128,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       else if (contador == (_dato_a_enviar + 1))
       {
         HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 0);
-        HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 1); // temporal ( IRQ parada )
         can_send = FREE;
       }
-      //else if( contador > 255 )
-      //{
-      //	can_send = FREE;
-      //}
-
       contador++;
     }
   }
